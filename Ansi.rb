@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Ansi
-  class Converter 
+  class Converter
     def initialize
       reset_color
     end
@@ -12,7 +12,7 @@ class Ansi
     end
     def set_color_for key,color
       @color[key] = color
-    end 
+    end
     def reset_color
       set_color 7,0,false
     end
@@ -32,7 +32,7 @@ class Ansi
         require 'gd2-ffij'
       else
         require 'gd2'
-        $KCODE = 'u' 
+        $KCODE = 'u'
         require 'jcode'
         String.class_eval do
           def ascii_only?
@@ -42,7 +42,7 @@ class Ansi
       end
       self.class.class_eval('include GD2')
       Image.class_eval('def p *arg; end;') # the gd2 gem puts useless data, mute it
-     
+
       @options = options
       @fontsize = width.to_i / 40
       height = @fontsize * 23
@@ -60,7 +60,7 @@ class Ansi
                               Color[0,0,255],Color[255,0,255],Color[0,255,255],Color[255,255,255]]}
     end
     def put str
-      return if str.empty? 
+      return if str.empty?
 
       # if we got a dual color char, draw it now
       unless @leftColor.nil?
@@ -91,7 +91,7 @@ class Ansi
     end
     def output
       if @options[:path]
-        @image.export @options[:path], {:format => 'png',:level => 9}; 
+        @image.export @options[:path], {:format => 'png',:level => 9};
         return @options[:path] # return a path back
       else
         return @image.png(9)
@@ -120,14 +120,14 @@ class Ansi
       y2 = y + @fontsize - 1
       x2 = x + @fontsize - 1
 
-      case ch.ord 
+      case ch.ord
       when (0x2581..0x2588)    # 1/8 to full block, see Unicode Spec
-        @canvas.rectangle x,             y + (0x2588 - ch.ord).to_f / 8  * @fontsize, 
+        @canvas.rectangle x,             y + (0x2588 - ch.ord).to_f / 8  * @fontsize,
                           x2, y2, true
       when (0x2589..0x258F) # 7/8 - 1/8 left block
         @canvas.rectangle x, y,
-                          x + (0x258F - ch.ord).to_f / 8 * @fontsize, 
-                          y2, true 
+                          x + (0x258F - ch.ord).to_f / 8 * @fontsize,
+                          y2, true
       when 0x25E2 # /|
         @canvas.polygon [[x,y2], [x2,y], [x2,y2]],true
       when 0x25E3 # |\
@@ -159,7 +159,7 @@ class Ansi
       str.gsub!(/\uFF89/,"\uFF89 ")
       str.gsub!(/\u2665/,"\u2665 ")
 
-      # HTML special chars 
+      # HTML special chars
       str.gsub!(/&/, '&amp;')
       str.gsub!(/</, '&lt;')
       str.gsub!(/>/, '&gt;')
@@ -204,27 +204,27 @@ class Ansi
     ctrl_seq = ""
     high_byte = false  # current status
 
-    @ansi.bytes do |b| 
+    @ansi.bytes do |b|
       if(ctrl_seq.empty? && b != 0x1B) #if is not ctrl sequence
-        case b 
+        case b
           when 10 #newline
             conv.put buffer.to_s!
             conv.newLine
-          when 13 #ignore \r 
+          when 13 #ignore \r
           else
             buffer.push b
             high_byte = (!high_byte && b > 128)
-          end 
+          end
         else # is control sequence
           ctrl_seq += (c = [b].pack('C*'))
-          if(c.match(/[0-9;\[\x1B]/).nil?) 
+          if(c.match(/[0-9;\[\x1B]/).nil?)
             if(c == "m") # terminal color config
               ## ANSI Convert##
               # Remove half byte from string before put to converter
               half_char = buffer.slice!(-1) if high_byte
               # puts string with old color settings
               conv.put buffer.to_s!  unless buffer.empty?
-              
+
               if high_byte
                 buffer.push half_char
                 # ask converter to store left side color
@@ -240,7 +240,7 @@ class Ansi
               if(confs.empty?) #*[m = clear setting
                 conv.reset_color
               else
-                ctrl_seq.split(';').each do |conf| 
+                ctrl_seq.split(';').each do |conf|
                   case conf = conf.to_i
                     when 0 then conv.reset_color
                     when 1 then conv.set_color_for :bri, true
@@ -250,7 +250,7 @@ class Ansi
                 end
               end
               conv.commit_color
-            end 
+            end
             ctrl_seq = ""
           end
         end
@@ -258,13 +258,13 @@ class Ansi
     conv.put buffer.to_s
     return conv.output
   end
-  
+
   private
-  class Buffer < Array 
+  class Buffer < Array
     def initialize
       super
     end
-    
+
     def conv str
       str.encode! 'utf-8','big5-uao',{:invalid => :replace, :undef => :replace}
 
