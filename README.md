@@ -6,6 +6,7 @@ Pending issues:
 
 * Currently it only supports Ruby 1.9.2 or above because it uses `String#encode!`
 * It requires `uming.ttc` font file in current working directory. This is inconvenient.
+* I left the author information blank in gemspec file. Please fill the information.
 
 I saw there are some code to use `gd2` gem in ruby 1.8.x. I think that doesn't work.
 
