@@ -27,6 +27,7 @@ This gem requires CJK font `AR PL UMing` for PNG rendering, which is licensed un
 Put a `uming.tcc` font file in your working directory. 
 
 Ways to find it:
+
 * In Ubuntu, it might be at `/usr/share/fonts/truetype/arphic/uming.ttc`.
 * Download it from [freedesktop.org] (http://www.freedesktop.org/wiki/Software/CJKUnifonts/Download)
 
