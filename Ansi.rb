@@ -2,21 +2,21 @@
 class Ansi
   class Converter 
     def initialize
-      resetColor
+      reset_color
     end
-    def waitHalfChar! # store dual color char left side color
+    def wait_half_char! # store dual color char left side color
       @leftColor = @color.clone
     end
-    def setColor fg,bg,bri
+    def set_color fg,bg,bri
       @color = {:fg => fg, :bg => bg, :bri => bri}
     end
-    def setColorFor key,color
+    def set_color_for key,color
       @color[key] = color
     end 
-    def resetColor
-      setColor 7,0,false
+    def reset_color
+      set_color 7,0,false
     end
-    def commitColor
+    def commit_color
       #this is when new color is ACKed, do nothing by default
     end
     def output
@@ -170,7 +170,7 @@ class Ansi
     def newLine
       @output += "</span></div><div><span class=\"#{formatColor}\">"
     end
-    def commitColor
+    def commit_color
       @output += '</span><span class="' + formatColor + '">'
     end
     def output
@@ -228,7 +228,7 @@ class Ansi
               if high_byte
                 buffer.push half_char
                 # ask converter to store left side color
-                conv.waitHalfChar!
+                conv.wait_half_char!
               end
 
               # Strip esc chars and "[" and tail char
@@ -238,18 +238,18 @@ class Ansi
               #split with ";" spliter
               confs = ctrl_seq.split(';')
               if(confs.empty?) #*[m = clear setting
-                conv.resetColor
+                conv.reset_color
               else
                 ctrl_seq.split(';').each do |conf| 
                   case conf = conf.to_i
-                    when 0 then conv.resetColor
-                    when 1 then conv.setColorFor :bri, true
-                    when 30..37 then conv.setColorFor :fg, conf % 10
-                    when 40..47 then conv.setColorFor :bg, conf % 10
+                    when 0 then conv.reset_color
+                    when 1 then conv.set_color_for :bri, true
+                    when 30..37 then conv.set_color_for :fg, conf % 10
+                    when 40..47 then conv.set_color_for :bg, conf % 10
                   end
                 end
               end
-              conv.commitColor
+              conv.commit_color
             end 
             ctrl_seq = ""
           end
