@@ -6,9 +6,9 @@ Gem::Specification.new do |s|
   s.name        = "ansi_art"
   s.version     = AnsiArt::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["please@fill.this"]
-  s.email       = ["please@fill.this"]
-  s.homepage    = ""
+  s.authors     = ["albb0920", "miaout17"]
+  s.email       = ["albb0920@gmail.com"]
+  s.homepage    = "https://github.com/albb0920/big5-ansiart"
   s.summary     = %q{ANSI AsciiArt Renderer}
   s.description = %q{Render AsciiArt to HTML and PNG format}
 
