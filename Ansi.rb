@@ -159,6 +159,12 @@ class Ansi
       str.gsub!(/\uFF89/,"\uFF89 ")
       str.gsub!(/\u2665/,"\u2665 ")
 
+      # HTML special chars 
+      str.gsub!(/&/, '&amp;')
+      str.gsub!(/</, '&lt;')
+      str.gsub!(/>/, '&gt;')
+      str.gsub!(/"/, '&quot;')
+
       @output += str.gsub(/ /,'&nbsp;')
     end
     def newLine
