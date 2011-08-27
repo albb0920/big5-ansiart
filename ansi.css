@@ -1,0 +1,42 @@
+.ansi-block{
+    background-color:	black;
+    font: 20px "細明體","AR PL UMing TW","MS Mincho","SimHei",monospace;
+    line-height: 100%;
+    color:silver;
+    width:800px;
+    overflow:hidden;
+    white-space: nowrap;
+    margin:0 auto;
+    padding:5px;
+    border:1px solid gray;
+    position:relative;
+}
+
+.ansi-block div{
+  height:20px;
+  overflow:hidden;
+  position:relative;
+}
+.float-char{
+    position:absolute;
+    width:10px;
+    height:20px;
+    overflow:hidden;
+}
+
+.f0{color:black}    .f1{color:Maroon}	.f2{color:Green}    .f3{color:Olive} 
+.f4{color:Navy}	    .f5{color:Purple}   .f6{color:Teal}	    .f7{color:Silver}
+
+.fb0{color:Gray}    .fb1{color:Red}	.fb2{color:lime}    .fb3{color:yellow}
+.fb4{color:blue}    .fb5{color:Fuchsia}	.fb6{color:Aqua}    .fb7{color:white}
+
+.b0{background-color:black}
+.b1{background-color:Maroon}
+.b2{background-color:Green}
+.b3{background-color:Olive}
+.b4{background-color:Navy}
+.b5{background-color:Purple}
+.b6{background-color:Teal}
+.b7{background-color:Silver}
+
+
