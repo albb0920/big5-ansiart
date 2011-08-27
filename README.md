@@ -41,11 +41,9 @@ And here is the ruby snippet:
     gem 'ansi_art'
     require 'ansi_art'
 
-    c = AnsiArt::Document.new(IO.read('803.ans'))
-    html = c.to_html
-    File.open('out.html', 'w') { |f| f.write(html) }
-    png = c.to_png
-    File.open('out.png', 'wb') { |f| f.write(png) }
+    doc = AnsiArt::Document.new(IO.read('803.ans'))
+    File.open('out.html', 'w') { |f| f.write(doc.to_html) }
+    File.open('out.png', 'wb') { |f| f.write(doc.to_png) }
 
 You should see `out.html` and `out.png` in your working directory.
 
