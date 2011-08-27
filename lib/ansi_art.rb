@@ -1,0 +1,3 @@
+module AnsiArt
+  # Your code goes here...
+end
