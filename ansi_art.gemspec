@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = "ansi_art"
   s.version     = AnsiArt::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
+  s.authors     = ["please@fill.this"]
+  s.email       = ["please@fill.this"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{ANSI AsciiArt Renderer}
+  s.description = %q{Render AsciiArt to HTML and PNG format}
 
   s.rubyforge_project = "ansi_art"
 
@@ -18,4 +18,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  s.add_dependency 'gd2-ffij', '~> 0.0.3'
+  s.add_dependency 'ffi', '~> 1.0.9'
 end
