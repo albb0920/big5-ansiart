@@ -12,6 +12,10 @@ module AnsiArt
       return convert PngConverter.new(w,o)
     end
 
+    def to_plaintext
+      return convert PlaintextConverter.new
+    end
+
     def convert conv
       buffer = Buffer.new
       ctrl_seq = ""
