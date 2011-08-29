@@ -7,6 +7,9 @@ Pending issues:
 * Currently it only supports Ruby 1.9.2 or above because it uses `String#encode!`
 * It requires `uming.ttc` font file in current working directory. This is inconvenient.
 * The CSS should be moved somewhere else.
+* Do we need to refine API of `AnsiArt::Document`.
+  It should be the only API class. All other classes are for internal use.
+  It's nice if we can make its API as generic as possible.
 
 I saw there are some code to use `gd2` gem in ruby 1.8.x. I think that doesn't work.
 
