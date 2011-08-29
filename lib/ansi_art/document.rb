@@ -22,7 +22,7 @@ module AnsiArt
           case b
             when 10 #newline
               conv.put buffer.to_s!
-              conv.newLine
+              conv.new_line
             when 13 #ignore \r
             else
               buffer.push b

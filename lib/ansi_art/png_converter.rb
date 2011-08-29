@@ -42,24 +42,24 @@ module AnsiArt
       # if we got a dual color char, draw it now
       unless @leftColor.nil?
         c = str[/./]
-        drawChar c,false
+        draw_char c,false
 
         # overlap left part
         @image.with_clipping  x = @canvas.location[0],
                               y = @canvas.location[1] + @drift,
                               x + @fontsize/2 -1,
                               y + @fontsize - 1 do |image|
-          drawChar c, true, @leftColor
+          draw_char c, true, @leftColor
         end
         str[/./] = ''
         @leftColor = nil
       end
 
       str.each_char do |c|
-        drawChar c
+        draw_char c
       end
     end
-    def newLine
+    def new_line
       @canvas.move_to 0, @canvas.location[1] + @fontsize
       # if no enough space for the new line, resize image
       if @canvas.location[1] + @fontsize + @drift > @image.height && !@options[:fixedHeight]
@@ -75,7 +75,7 @@ module AnsiArt
       end
     end
     private
-    def drawChar c, move=true, color=@color
+    def draw_char c, move=true, color=@color
       width = @fontsize * ((c.ascii_only?)? 0.5 : 1)
 
       # draw background first
@@ -88,11 +88,11 @@ module AnsiArt
       # draw text
       @canvas.color = @palette[(color[:bri])? :bright : :normal][color[:fg]]
 
-      @canvas.text c unless graphChar c,x,y
+      @canvas.text c unless graph_char c,x,y
 
       @canvas.move width,0 if move
     end
-    def graphChar ch, x, y
+    def graph_char ch, x, y
       # right bottom point of full width char
       y2 = y + @fontsize - 1
       x2 = x + @fontsize - 1

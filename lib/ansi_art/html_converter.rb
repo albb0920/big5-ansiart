@@ -5,7 +5,7 @@ module AnsiArt
       @output = '<div><span class="f7 b0">'
     end
     def put str
-      putHalfChar str[/./] unless @leftColor.nil?
+      put_half_char str[/./] unless @leftColor.nil?
 
       # behave like PCMan, need option for user to choose, though
       str.gsub!(/\u00B7/,"\u00B7 ")
@@ -21,22 +21,22 @@ module AnsiArt
 
       @output += str.gsub(/ /,'&nbsp;')
     end
-    def newLine
-      @output += "</span></div><div><span class=\"#{formatColor}\">"
+    def new_line
+      @output += "</span></div><div><span class=\"#{format_color}\">"
     end
     def commit_color
-      @output += '</span><span class="' + formatColor + '">'
+      @output += '</span><span class="' + format_color + '">'
     end
     def output
       return @output + '</span></div>'
     end
 
     private
-    def formatColor color=@color
+    def format_color color=@color
       return "f#{((color[:bri])? 'b' : '')+color[:fg].to_s} b#{color[:bg].to_s}"
     end
-    def putHalfChar chr
-      @output += "<span class=\"float-char #{formatColor @leftColor}\">#{chr}</span>"
+    def put_half_char chr
+      @output += "<span class=\"float-char #{format_color @leftColor}\">#{chr}</span>"
       @leftColor = nil
     end
   end
