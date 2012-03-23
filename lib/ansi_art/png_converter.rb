@@ -1,7 +1,13 @@
 #encoding: utf-8
 module AnsiArt
   class PngConverter < Converter
-    def initialize width, options
+    
+    # Public: Initialize a new png targeted converter
+    # width - output image width 
+    # options - options hash
+    #		:path - if specified, store data to path rather than output directly
+    #		:reverse_color - reverse all colors to emulate terminal highlight feature 
+    def initialize width, options={}
       super()
 
       # GD Image Library
@@ -35,6 +41,14 @@ module AnsiArt
                               Color[0,0,128],Color[128,0,128],Color[0,128,128],Color[192,192,192]],
                   :bright => [Color[128,128,128],Color[255,0,0],Color[0,255,0],Color[255,255,0],
                               Color[0,0,255],Color[255,0,255],Color[0,255,255],Color[255,255,255]]}
+
+      if options[:reverse_color]
+        @palette.each do |mode, palette|
+          palette.map! do |color|
+            Color[255-color.red, 255-color.blue, 255 - color.green] 
+          end
+        end
+      end
     end
     def put str
       return if str.empty?
