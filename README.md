@@ -5,7 +5,7 @@ This project is under refactoring.
 Pending issues:
 
 * Currently it only supports Ruby 1.9.2 or above because it uses `String#encode!`
-* It requires `uming.ttc` font file in current working directory. This is inconvenient.
+* For GD implementation, it requires `uming.ttc` font file in current working directory. This is inconvenient.
 * The CSS should be moved somewhere else.
 * Do we need to refine API of `AnsiArt::Document`.
   It should be the only API class. All other classes are for internal use.
@@ -16,7 +16,13 @@ I saw there are some code to use `gd2` gem in ruby 1.8.x. I think that doesn't w
 ## Requirement
 
 * Ruby 1.9.2 or above
+
+For GD-based PNG converter:
 * libgd
+
+For Cairo-based PNG converter:
+* Cairo (On Ubuntu, you need `libcairo2-dev`)
+* Pango (On Ubuntu, you need `libpango1.0-dev`)
 
 ## Installation
 
@@ -47,6 +53,9 @@ And here is the ruby snippet:
     doc = AnsiArt::Document.new(IO.read('803.ans'))
     File.open('out.html', 'w') { |f| f.write(doc.to_html) }
     File.open('out.png', 'wb') { |f| f.write(doc.to_png) }
+
+    # To use the experimental Cairo PNG converter
+    doc.to_png_cairo(800, :path => 'out.cairo.png')
 
 You should see `out.html` and `out.png` in your working directory.
 
