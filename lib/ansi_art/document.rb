@@ -12,6 +12,10 @@ module AnsiArt
       return convert PngConverter.new(w,o)
     end
 
+    def to_png_cairo w=800, o={}
+      return convert AnsiArt::PngCairoConverter.new(w,o)
+    end
+
     def to_plaintext
       return convert PlaintextConverter.new
     end
