@@ -25,6 +25,10 @@ module AnsiArt
         if(ctrl_seq.empty? && b != 0x1B) #if is not ctrl sequence
           case b
           when 10 #newline
+            if high_byte # 2-byte char interrupted
+              buffer[-1] = '?'.ord
+              high_byte = false
+            end
             conv.put buffer.to_s!
             conv.new_line
           when 13 #ignore \r
